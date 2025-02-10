@@ -1,0 +1,29 @@
+# config/config.toml
+[inputs.grpc]
+server_address = "localhost:50051"
+
+[inputs.amqp]
+host = "localhost"
+port = 5672
+queue = "metrics"
+
+[inputs.syslog]
+host = "0.0.0.0"
+port = 514
+
+[inputs.docker]
+
+[outputs.influxdb]
+host = "localhost"
+port = 8086
+database = "metrics"
+
+[outputs.prometheus]
+port = 8000
+
+[outputs.s3]
+bucket = "my-metrics-bucket"
+region = "us-east-1"
+
+[outputs.slack]
+webhook_url = "https://hooks.slack.com/services/your/webhook/url"

@@ -1,0 +1,51 @@
+# config/config.toml
+[plugin_manager]
+global_interval = 5  # Default interval for all plugins
+max_workers = 5      # Maximum number of threads in the thread pool
+# config/config.toml
+[inputs.cpu]
+interval = 5
+namepass = ["cpu"]  # Only process metrics with name "cpu"
+
+[inputs.ram]  # Enable RAM input plugin
+
+[inputs.network]  # Enable Network input plugin
+
+[inputs.mqtt]
+broker = "broker.emqx.io"
+port = 1883
+topic = "sensors/temperature"
+
+[inputs.http_api]
+url = "http://example.com/api/metrics"
+interval = 5  # Polling interval in seconds
+
+#[inputs.websocket]
+#uri = "ws://example.com/ws"
+
+[processors.add_tag]
+key = "environment"
+value = "production"
+namepass = ["drop"]
+
+[processors.python_code]
+code = """
+metric.fields["processed"] = True
+metric.tags["stage"] = "processed"
+"""
+
+[processors.external_executable]
+command = "python3 scripts/external_processor.py"
+
+[outputs.mqtt]
+broker = "broker.emqx.io"
+port = 1883
+topic = "metrics/processed"
+
+[outputs.console]
+
+[outputs.file]
+path = "metrics.json"
+
+[outputs.http]
+url = "http://example.com/webhook"

@@ -1,0 +1,33 @@
+# config/config.toml
+[inputs.kafka]
+bootstrap_servers = "localhost:9092"
+topic = "metrics"
+
+[inputs.redis]
+host = "localhost"
+port = 6379
+db = 0
+
+[inputs.snmp]
+host = "localhost"
+community = "public"
+oids = ["1.3.6.1.2.1.1.1.0", "1.3.6.1.2.1.1.5.0"]
+
+[inputs.prometheus]
+url = "http://localhost:9090/api/v1/query"
+
+[outputs.kafka]
+bootstrap_servers = "localhost:9092"
+topic = "processed_metrics"
+
+[outputs.redis]
+host = "localhost"
+port = 6379
+db = 0
+
+[outputs.elasticsearch]
+hosts = ["http://localhost:9200"]
+
+[outputs.graphite]
+host = "localhost"
+port = 2003
